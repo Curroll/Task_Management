@@ -12,7 +12,7 @@ const AddEditTaskModal = ({ isOpen, onClose, onSave }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(task);
-    setTask({ title: '', assignee: '', status: 'To Do', startDate: '', endDate: '' }); // Reset form
+    setTask({ title: '', assignee: '', status: 'To Do', startDate: '', endDate: '' }); 
   };
 
   if (!isOpen) return null;

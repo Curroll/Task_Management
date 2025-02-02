@@ -7,7 +7,6 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
 
-  // Load tasks from local storage on component mount
   useEffect(() => {
     try {
       const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -30,21 +29,18 @@ function App() {
     }
   }, []);
 
-  // Save tasks to local storage whenever they change (but avoid overwriting on initial load)
   useEffect(() => {
     if (tasks.length > 0 || localStorage.getItem('tasks')) {
       localStorage.setItem('tasks', JSON.stringify(tasks));
     }
   }, [tasks]);
 
-  // Function to handle saving a task
   const handleSaveTask = (task) => {
     const newTask = { ...task, id: Date.now() };
     setTasks((prevTasks) => [...prevTasks, newTask]);
     setIsModalOpen(false);
   };
 
-  // Function to delete a task
   const handleDeleteTask = (id) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
@@ -54,14 +50,12 @@ function App() {
       <h1>Task Management System</h1>
       <button onClick={() => setIsModalOpen(true)}>Add Task</button>
 
-      {/* Render the modal */}
       <AddEditTaskModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSave={handleSaveTask}
       />
 
-      {/* Display the list of tasks */}
       <div className="task-list">
         {tasks.length === 0 ? (
           <p>No tasks found. Add a task to get started!</p>
